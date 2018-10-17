@@ -75,6 +75,34 @@ const financialAdvisor = Object.create (null, {
   }
 });
 
+const buildName = (names, companies, specialties) => {
+  let placeHolder = document.getElementById("nameBox");
+  let nameBox = document.createElement("div");
+  let companyName = document.createElement("h1");
+  companyName.setAttribute("id", "company");
+  companyName.innerHTML = companies;
+  nameBox.appendChild(companyName);
+  let specialtyName = document.createElement("h2");
+  specialtyName.setAttribute("id", "specialty");
+  specialtyName.innerHTML = specialties;
+  nameBox.appendChild(specialtyName);
+  let personName = document.createElement("h3");
+  personName.setAttribute("id", "name");
+  personName.innerHTML = names;
+  nameBox.appendChild(personName);
+  placeHolder.appendChild(nameBox);
+};
+
+function currentStock (stocks) {
+  let placeHolder = document.getElementById("nameBox");
+  let stockFrag = document.createDocumentFragment();
+  for (let i = 0; i < stocks.length; i++) {
+    let stockBox = document.createElement("p");
+    stockBox.innerHTML = `${i+1}. ${stocks[i].stock} -   Own: ${stocks[i].quantity} shares. -   Price: $${stocks[i].price.toFixed(2)}`;
+    stockFrag.appendChild(stockBox);
+  }
+  placeHolder.appendChild(stockFrag);
+}
 
 financialAdvisor.purchase("YouTube", 50, 79.99);
 financialAdvisor.purchase("Facebook", 60, 20);
@@ -85,6 +113,7 @@ financialAdvisor.sell("Krispy Kreme", 5, 10);
 console.log(financialAdvisor.sell("Krispy Kreme", 5, 10));
 financialAdvisor.purchase("Google", 60, 10.5);
 financialAdvisor.purchase("Twitter", 60, 47);
-
 console.log(financialAdvisor);
 console.log(financialAdvisor.worth());
+buildName(financialAdvisor.name, financialAdvisor.company, financialAdvisor.specialty);
+currentStock(financialAdvisor.portfolio);
